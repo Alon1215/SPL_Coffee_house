@@ -49,15 +49,14 @@ class _Repository:
                                      
                 );
                 
-                CREATE TABLE Coffee_stands (product_id INTEGER  
-                                            quantity INTEGER NOT NULL,
-                                            activator_id INTEGER NOT NULL,
-                                            date DATE NOT NULL,
-                                    FOREIGN KEY(product_id)    REFERENCES Products(id)
-                                    
-                CREATE TABLE Activities (product_id INTEGER ,
-                                        quantity INTEGER NOT NULL,
-                                        activator_id INTEGER NOT NULL,
+                CREATE TABLE Coffee_stands (id INT  PRIMARY KEY,                
+                                            location TEXT NOT NULL,
+                                            number_of_employees INTEGER
+                                
+                );                    
+                CREATE TABLE Activities (product_id INT ,
+                                        quantity INT NOT NULL,
+                                        activator_id INT NOT NULL,
                                         date DATE NOT NULL,
                                         
                                         FOREIGN KEY(product_id)   REFERENCES Products(id)
@@ -90,9 +89,21 @@ class _Repository:
 
     def print_suppliers(self):
         print("Suppliers")
+        all = self._conn.cursor().execute("""
+        SELECT * FROM Suppliers
+        ORDER BY id
+        """).fetchall()
+        for line in all:
+            print(line)
 
     def print_products(self):
         print("Products")
+        all = self._conn.cursor().execute("""
+                SELECT * FROM Products
+                ORDER BY id
+                """).fetchall()
+        for line in all:
+            print(line)
 
     def print_activities_top(self):
         print("Activities")

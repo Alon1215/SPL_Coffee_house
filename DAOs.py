@@ -86,7 +86,7 @@ class _Products:
             WHERE product_id=(?)
             """, [new_quantity, product_id])
 
-    def find(self, product_id):
+    def get_quantity(self, product_id):
         c = self._conn.cursor()
         c.execute("""
                 SELECT quantity FROM Products WHERE product_id = ?
@@ -110,4 +110,4 @@ class _Activities:
             SELECT student_id, assignment_num, grade FROM grades
         """).fetchall()
 
-        return [Activity(*row) for row in all]
+        return (Activity(*row) for row in all)
