@@ -13,7 +13,7 @@ class _CoffeeStands:
     def insert(self, coffee_stand):
         self._conn.execute("""
                INSERT INTO Coffee_stands (id, location, number_of_employees) VALUES (?, ?, ?)
-           """, [coffee_stand.id, coffee_stand.location, coffee_stand.emp])
+           """, [coffee_stand.stand_id, coffee_stand.location, coffee_stand.emp])
 
     def find(self, coffee_stand_id):
         c = self._conn.cursor()
@@ -30,7 +30,7 @@ class _Employees:
 
     def insert(self, employee):
         self._conn.execute("""
-                INSERT INTO Employees (num, expected_output) VALUES (?, ?, ?, ?)
+                INSERT INTO Employees (id, name,salary,coffee_stand) VALUES (?, ?, ?, ?)
         """, [employee.employee_id, employee.name, employee.salary, employee.coffee_stand])
 
     def find(self, employee_id):
@@ -48,7 +48,7 @@ class _Suppliers:
 
     def insert(self, supplier):
         self._conn.execute("""
-            INSERT INTO Suppliers (id, name, contact_info) VALUES (?, ?, ?)
+            INSERT INTO Suppliers (id, name, contact_information) VALUES (?, ?, ?)
         """, [supplier.sup_id, supplier.sup_name, supplier.sup_contact_info])
 
     # TODO: change method: here because of copying from class, not sure if needed (same for all findAll()
@@ -67,7 +67,7 @@ class _Products:
 
     def insert(self, product):
         self._conn.execute("""
-            INSERT INTO Products (product_id, description, price, quantity) VALUES (?, ?, ?)
+            INSERT INTO Products (id, description, price, quantity) VALUES (?, ?, ?, ?)
         """, [product.product_id, product.product_description, product.product_price, product.product_quantity])
 
     # TODO: change method: here because of copying from class, not sure if needed (same for all findAll()
