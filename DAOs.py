@@ -83,15 +83,15 @@ class _Products:
         c = self._conn.cursor()
         c.execute("""
             UPDATE Products SET quantity=(?) 
-            WHERE product_id=(?)
+            WHERE id=(?)
             """, [new_quantity, product_id])
 
     def get_quantity(self, product_id):
         c = self._conn.cursor()
         c.execute("""
-                SELECT quantity FROM Products WHERE product_id = ?
+                SELECT quantity FROM Products WHERE id = ?
             """, [product_id])
-        return c.fetchone()
+        return c.fetchone()[0]
 
 
 class _Activities:

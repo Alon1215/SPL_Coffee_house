@@ -15,16 +15,16 @@ for line in f:
 #print(activityList)
 
 for activity in activityList:
-    currQuantity = _Products.get_quantity(activity[0])
+    currQuantity = repo.Products.get_quantity(activity[0])
     activityQuantity = int(activity[1])
     newQuantity = currQuantity + activityQuantity
     if activityQuantity>0:
-        _Products.update(activity[0], newQuantity)
-        _Activities.insert(Activity(*activity))
+        repo.Products.update_quantity(activity[0], newQuantity)
+        repo.Activities.insert(Activity(*activity))
 
     elif activityQuantity < 0 and newQuantity >= 0:
-            _Products.update(activity[0], newQuantity)
-            _Activities.insert(Activity(*activity))
+            repo.Products.update_quantity(activity[0], newQuantity)
+            repo.Activities.insert(Activity(*activity))
 
 
 

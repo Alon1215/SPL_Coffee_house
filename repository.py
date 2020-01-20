@@ -11,9 +11,6 @@ class _Repository:
     def __init__(self):
 
         # todo: change logic to check first if it exist, then create a fresh one
-        self.dbExist = os.path.isfile('moncafe.db')
-        if self.dbExist:
-            os.remove('moncafe.db')
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
         self.Employees = _Employees(self._conn)
@@ -24,6 +21,7 @@ class _Repository:
     def _close(self):
         self._conn.commit()
         self._conn.close()
+
 
     def create_tables(self):
         self._conn.executescript("""
@@ -65,12 +63,13 @@ class _Repository:
     def get_total_income(self, employee_id):
         total = 0
         my_activities_value = self._conn.cursor().execute("""
-                SELECT Activities.quantity Products.price FROM Activities act WHERE activator_id=?
+                SELECT Activities.quantity, price FROM Activities 
                 JOIN Products ON Activities.product_id = Products.id 
+                WHERE activator_id=?
                 """, [employee_id]).fetchall()
         for item in my_activities_value:
-            total += (item[0] * item[1])
-        return my_activities_value
+            total += (abs(item[0]) * item[1])
+        return total
 
     def print_coffee_stands(self):
         print("Coffee stands")
@@ -104,7 +103,7 @@ class _Repository:
         print("Products")
         all = self._conn.cursor().execute("""
                 SELECT * FROM Products
-                ORDER BY product_id
+                ORDER BY id
                 """).fetchall()
         for line in all:
             print(line)
@@ -112,34 +111,42 @@ class _Repository:
     def print_employees_report(self):
         print("Employees report")
         all = self._conn.cursor().execute("""
-                                            SELECT emp.id emp.name, emp.salary, cf.location FROM Employees emp
-                                            JOIN Coffee_stands cf ON cf.id = emp.coffee_stand
-                                            ORDER BY cow.name
+                                            SELECT Employees.id ,name, salary, location FROM Employees 
+                                            JOIN Coffee_stands  ON  Coffee_stands.id = Employees.coffee_stand
+                                            ORDER BY Employees.name
+
                                             """).fetchall()
-        for item in list:
+        for item in all:
             total = self.get_total_income(item[0])
             print("%s %s %s %s" % (item[1], item[2], item[3], total))
 
     def print_activities_report(self):
         print("Activities")
-        all = self._conn.execute("""
-                                SELECT Activities.date Products.description 
-                                Products.quantity Employees.name Suppliers.name FROM Activities
-                                JOIN Products ON Activities.product_id = Product.id
-                                LEFT JOIN Employees ON Activity.activator_id = Employees.id
-                                left JOIN Suppliers ON Activity.activator_id = Supplier
-                                ORDER BY Activities.date
-                                """).fetchall()
+        # all = self._conn.cursor().execute("""
+        #                         SELECT Activities.date Products.description
+        #                         Products.quantity Employees.name Suppliers.name FROM Activities
+        #                         JOIN Products ON Activities.product_id = Products.id
+        #                         LEFT JOIN Employees ON Activities.activator_id = Employees.id
+        #                         LEFT JOIN Suppliers ON Activities.activator_id = Suppliers.id
+        #                         ORDER BY Activities.date
+        #                         """).fetchall()
+
+        all = self._conn.cursor().execute("""SELECT date,description, Activities.quantity ,Employees.name,Suppliers.name FROM Activities
+                               JOIN Products ON Activities.product_id = Products.id
+                                LEFT JOIN Employees ON Activities.activator_id = Employees.id
+                                LEFT JOIN Suppliers ON Activities.activator_id = Suppliers.id
+                                ORDER BY Activities.date """).fetchall()
 
         for line in all:
             print(line)
 
     def print_all(self):
-        self.print_activities_report()
+        #self.print_activities_report()
         self.print_coffee_stands()
         self.print_employees()
         self.print_products()
         self.print_suppliers()
+        self.print_employees_report()
         self.print_activities_report()
 
 
