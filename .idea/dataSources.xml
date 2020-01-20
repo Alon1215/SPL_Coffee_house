@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="moncafe" uuid="490a9b25-0f25-4f85-b590-a1e03cfb5b81">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\10OFE\PycharmProjects\SPL-Ass4\moncafe.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
