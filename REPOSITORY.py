@@ -11,6 +11,7 @@ class _Repository:
     def __init__(self):
 
         # todo: change logic to check first if it exist, then create a fresh one
+        DBExist = os.path.isfile('moncafe.db')
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
         self.Employees = _Employees(self._conn)
