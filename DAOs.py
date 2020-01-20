@@ -12,8 +12,8 @@ class _CoffeeStands:
 
     def insert(self, coffee_stand):
         self._conn.execute("""
-               INSERT INTO Coffee stands (id, #emp) VALUES (?, ?)
-           """, [coffee_stand.id, coffee_stand.emp])
+               INSERT INTO Coffee stands (id, location, #emp) VALUES (?, ?, ?)
+           """, [coffee_stand.id, coffee_stand.location, coffee_stand.emp])
 
     def find(self, coffee_stand_id):
         c = self._conn.cursor()
@@ -22,6 +22,10 @@ class _CoffeeStands:
         """, [coffee_stand_id])
 
         return CoffeeStand(*c.fetchone())
+
+    def print_cStands(self):
+        print("Coffee stands")
+
 
 
 class _Employees:
@@ -40,6 +44,9 @@ class _Employees:
             """, [employee_id])
 
         return Employee(*c.fetchone())
+
+    def print_emoloyees(self):
+        print("Coffee stands")
 
 
 class _Suppliers:
@@ -60,6 +67,9 @@ class _Suppliers:
 
         return [Supplier(*row) for row in all]
 
+    def print_suppliers(self):
+        print("Coffee stands")
+
 
 class _Products:
     def __init__(self, conn):
@@ -78,6 +88,9 @@ class _Products:
         """).fetchall()
 
         return [Product(*row) for row in all]
+
+    def print_products(self):
+        print("Coffee stands")
 
 
 class _Activities:

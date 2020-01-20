@@ -1,7 +1,8 @@
 # Data Transfer Objects:
 class CoffeeStand:
-    def __init__(self, stand_id, emp):
+    def __init__(self, stand_id,location, emp):
         self.stand_id = stand_id
+        self.location = location
         self.emp = emp
 
 
