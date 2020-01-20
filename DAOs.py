@@ -12,7 +12,7 @@ class _CoffeeStands:
 
     def insert(self, coffee_stand):
         self._conn.execute("""
-               INSERT INTO Coffee stands (id, location, #emp) VALUES (?, ?, ?)
+               INSERT INTO Coffee stands (id, location, number_of_employees) VALUES (?, ?, ?)
            """, [coffee_stand.id, coffee_stand.location, coffee_stand.emp])
 
     def find(self, coffee_stand_id):
@@ -22,7 +22,6 @@ class _CoffeeStands:
         """, [coffee_stand_id])
 
         return CoffeeStand(*c.fetchone())
-
 
 
 class _Employees:
@@ -41,9 +40,6 @@ class _Employees:
             """, [employee_id])
 
         return Employee(*c.fetchone())
-
-    def print_emoloyees(self):
-        print("Coffee stands")
 
 
 class _Suppliers:
@@ -64,9 +60,6 @@ class _Suppliers:
 
         return [Supplier(*row) for row in all]
 
-    def print_suppliers(self):
-        print("Coffee stands")
-
 
 class _Products:
     def __init__(self, conn):
@@ -74,20 +67,33 @@ class _Products:
 
     def insert(self, product):
         self._conn.execute("""
-            INSERT INTO Products (id, description, price, quantity) VALUES (?, ?, ?)
+            INSERT INTO Products (product_id, description, price, quantity) VALUES (?, ?, ?)
         """, [product.product_id, product.product_description, product.product_price, product.product_quantity])
 
     # TODO: change method: here because of copying from class, not sure if needed (same for all findAll()
     def find_all(self):
         c = self._conn.cursor()
         all = c.execute("""
-            SELECT id, description, price, quantity FROM Products
+            SELECT product_id, description, price, quantity FROM Products
         """).fetchall()
 
         return [Product(*row) for row in all]
 
-    def print_products(self):
-        print("Coffee stands")
+    def update_quantity(self, product_id, new_quantity):
+        c = self._conn.cursor()
+        c.execute("""
+            UPDATE Products SET quantity=(?) 
+            WHERE product_id=(?)
+            """, [new_quantity, product_id])
+
+    def find(self, product_id):
+        c = self._conn.cursor()
+        c.execute("""
+                SELECT quantity FROM Products WHERE product_id = ?
+            """, [product_id])
+
+        return Employee(*c.fetchone())
+
 
 
 class _Activities:

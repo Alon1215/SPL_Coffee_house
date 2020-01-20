@@ -11,7 +11,7 @@ class _Repository:
     def __init__(self):
 
         # todo: change logic to check first if it exist, then create a fresh one
-        DBExist = os.path.isfile('moncafe.db')
+        self.dbExist = os.path.isfile('moncafe.db')
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
         self.Employees = _Employees(self._conn)
@@ -59,6 +59,33 @@ class _Repository:
             print(*row)
 
         return [StudentGrade(*row) for row in all]
+
+    def print_coffee_stands(self):
+        print("Coffee stands")
+
+
+    def print_emoloyees(self):
+        print("Employees")
+
+    def print_suppliers(self):
+        print("Suppliers")
+
+    def print_products(self):
+        print("Products")
+
+    def print_activities_top(self):
+        print("Activities")
+
+    def print_activities_bottom(self):
+        print("Activities")
+
+    def print_tables(self):
+        self.print_activities_top()
+        self.print_coffee_stands()
+        self.print_emoloyees()
+        self.print_products()
+        self.print_suppliers()
+        self.print_activities_bottom()
 
 
 # the repository singleton
