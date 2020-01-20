@@ -91,9 +91,7 @@ class _Products:
         c.execute("""
                 SELECT quantity FROM Products WHERE product_id = ?
             """, [product_id])
-
-        return Employee(*c.fetchone())
-
+        return c.fetchone()
 
 
 class _Activities:
