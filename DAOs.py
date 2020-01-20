@@ -23,9 +23,6 @@ class _CoffeeStands:
 
         return CoffeeStand(*c.fetchone())
 
-    def print_cStands(self):
-        print("Coffee stands")
-
 
 
 class _Employees:
