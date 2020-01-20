@@ -12,11 +12,9 @@ parseList = []
 for line in f:
     if line[-1]=='\n':
         line = line[:-1]
+    parseList.append(line.split(', '))
 
-    l = line.split(', ')
-    parseList.append(l)
-
-print(parseList)
+#print(parseList)
 
 for line in parseList:
     if(line[0]=='C'):

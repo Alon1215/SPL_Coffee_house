@@ -54,6 +54,14 @@ class _Repository:
                                             activator_id INTEGER NOT NULL,
                                             date DATE NOT NULL,
                                     FOREIGN KEY(product_id)    REFERENCES Products(id)
+                                    
+                CREATE TABLE Activities (product_id INTEGER ,
+                                        quantity INTEGER NOT NULL,
+                                        activator_id INTEGER NOT NULL,
+                                        date DATE NOT NULL,
+                                        
+                                        FOREIGN KEY(product_id)   REFERENCES Products(id)
+                );
         """)
 
     # The method print_grades at the application logic (main) is inefficient because
