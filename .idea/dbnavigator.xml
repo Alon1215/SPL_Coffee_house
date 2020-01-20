@@ -23,18 +23,15 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="0f66d7a8-abe3-4d6d-9561-5b3cf0de0485">
+        <schema name="main" object-types="index, dataset trigger, table, view, column, constraint" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="0f66d7a8-abe3-4d6d-9561-5b3cf0de0485">
-      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[SELECT Activities.quantity Products.price FROM Activities act WHERE activator_id=?
-                JOIN Products ON Activities.product_id = Products.id                  
-
-
-SELECT Activities.quantity, price FROM Activities 
-                JOIN Products ON Activities.product_id = Products.id 
-                WHERE activator_id=101]]></console>
-      <console name="Connection 1" type="STANDARD" schema="main" session="Main" />
+      <console name="Connection" type="STANDARD" schema="main" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -42,6 +39,9 @@ SELECT Activities.quantity, price FROM Activities
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="0f66d7a8-abe3-4d6d-9561-5b3cf0de0485" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="0f66d7a8-abe3-4d6d-9561-5b3cf0de0485" dataset="main.Activities" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />

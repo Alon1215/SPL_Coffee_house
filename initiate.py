@@ -1,11 +1,11 @@
-import repository
+
 from DAOs import _CoffeeStands,_Activities,_Employees,_Products,_Suppliers
 from DTOs import *
 from repository import repo
 import os
 dbExist = os.path.isfile('moncafe.db')
-# if dbExist:
-#          os.remove('moncafe.db')
+if dbExist:
+    os.remove('moncafe.db')
 repo.create_tables()
 file = open('config.txt','r')
 f = file.readlines()
