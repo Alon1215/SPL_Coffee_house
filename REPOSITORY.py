@@ -12,6 +12,8 @@ class _Repository:
 
         # todo: change logic to check first if it exist, then create a fresh one
         self.dbExist = os.path.isfile('moncafe.db')
+        if self.dbExist:
+            os.remove('moncafe.db')
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
         self.Employees = _Employees(self._conn)
@@ -19,28 +21,39 @@ class _Repository:
         self.Activities = _Activities(self._conn)
         self.Products = _Products(self._conn)
 
+
     def _close(self):
         self._conn.commit()
         self._conn.close()
 
     def create_tables(self):
         self._conn.executescript("""
-                CREATE TABLE students (id   INT   PRIMARY KEY,
-                                       name TEXT  NOT NULL
+                CREATE TABLE Employees (id   INT   PRIMARY KEY,
+                                       name TEXT  NOT NULL,
+                                       salary REAL NOT NULL,
+                                       coffee_stand INT, 
+                                       
+                                       FOREIGN KEY(coffee_stand)    REFERENCES Coffee_stand(id)
                 );
 
-                CREATE TABLE assignments (num             INT     PRIMARY KEY,
-                                          expected_output TEXT    NOT NULL
+                CREATE TABLE Suppliers (id  INT   PRIMARY KEY,
+                                        name TEXT    NOT NULL,
+                                        contact_information TEXT
+                                        
                 );
 
-                CREATE TABLE grades (student_id      INT     NOT NULL,
-                                     assignment_num  INT     NOT NULL,
-                                     grade           INT     NOT NULL,
-
-                                     FOREIGN KEY(student_id)     REFERENCES students(id),
-                                     FOREIGN KEY(assignment_num) REFERENCES assignments(num),
-                                     PRIMARY KEY (student_id, assignment_num)
+                CREATE TABLE Products (id      INT     PRIMARY KEY,
+                                     description  TEXT     NOT NULL,
+                                     price        REAL     NOT NULL,
+                                     quantity INTEGER NOT NULL
+                                     
                 );
+                
+                CREATE TABLE Coffee_stands (product_id INTEGER  
+                                            quantity INTEGER NOT NULL,
+                                            activator_id INTEGER NOT NULL,
+                                            date DATE NOT NULL,
+                                    FOREIGN KEY(product_id)    REFERENCES Products(id)
         """)
 
     # The method print_grades at the application logic (main) is inefficient because
