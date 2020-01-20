@@ -23,7 +23,7 @@ class Product:
 
 
 class Supplier:
-    def __init__(self, sup_id, sup_name, sup_contact_info ):
+    def __init__(self, sup_id, sup_name, sup_contact_info):
         self.sup_id = sup_id
         self.sup_name = sup_name
         self.sup_contact_info = sup_contact_info

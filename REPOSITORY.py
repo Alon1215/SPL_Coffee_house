@@ -82,6 +82,11 @@ class _Repository:
 
     def print_coffee_stands(self):
         print("Coffee stands")
+        c = self._conn.cursor()
+        all = c.execute(""" SELECT * FROM """)
+        for line in all:
+            print(line)
+
 
 
     def print_emoloyees(self):
