@@ -62,45 +62,43 @@ class _Repository:
                 );
         """)
 
-    # The method print_grades at the application logic (main) is inefficient because
-    # it goes over all the students one by one in order to find the name of the student
-    # Using join query matches between the student's grade and name.
-    def get_grades_with_names(self):
-        all = self._conn.cursor().execute("""
-            SELECT students.name, grades.assignment_num, grades.grade
-            FROM grades
-            JOIN students ON grades.student_id = students.id
-        """).fetchall()
+    def get_total_income(self, id):
+        total = 0
+        my_activities_value = self._conn.cursor().execute("""
+                SELECT act.quantity prod.price FROM Activities act
+                JOIN Products prod ON act.product_id = prod.id
+                ORDER BY cow.name
+                """).fetchall()
+        for item in my_activities_value:
+            total += item[0]
 
-        # Just for debaug - The difference between row and *row
-        for row in all:
-            print(row)
-            print(*row)
 
-        return [StudentGrade(*row) for row in all]
 
     def print_coffee_stands(self):
         print("Coffee stands")
 
-        # SELECT cow.name, cow.DOB, reg.name, cat.name, cat.description FROM cow_tab cow
-        # JOIN region_tab reg ON cow.region_id = reg.region_id
-        # JOIN category_tab cat ON cat.category_id = cow.category_id
-        # ORDER BY cow.name
-        all_stands = self._conn.cursor().execute(""" SELECT * FROM Coffee_stands
-                            BY ORDER id
-                            """)
-        for line in all_stands:
+        all = self._conn.cursor().execute("""
+                SELECT * FROM Coffee_stands
+                ORDER BY id
+                """).fetchall()
+        for line in all:
             print(line)
 
-    def print_emoloyees(self):
+    def print_employees(self):
         print("Employees")
+        all = self._conn.cursor().execute("""
+                SELECT * FROM Suppliers
+                ORDER BY id
+                """).fetchall()
+        for line in all:
+            print(line)
 
     def print_suppliers(self):
         print("Suppliers")
         all = self._conn.cursor().execute("""
-        SELECT * FROM Suppliers
-        ORDER BY id
-        """).fetchall()
+                SELECT * FROM Suppliers
+                ORDER BY id
+                """).fetchall()
         for line in all:
             print(line)
 
@@ -108,21 +106,38 @@ class _Repository:
         print("Products")
         all = self._conn.cursor().execute("""
                 SELECT * FROM Products
-                ORDER BY id
+                ORDER BY product_id
                 """).fetchall()
         for line in all:
             print(line)
 
-    def print_activities_top(self):
+    def print_employees_report(self):
+        print("Employees report")
+        all = self._conn.cursor().execute("""
+                                            SELECT emp.id emp.name, emp.salary, cf.location FROM Employees emp
+                                            LEFT JOIN Coffee_stands cf ON cf.id = emp.coffee_stand
+                                            ORDER BY cow.name
+                                            """).fetchall()
+        for item in list:
+            int total = get_total_income(item[0])
+            print("%s %s %s %s" % (item[1], item[2], item[3], total))
+
+    def print_activities_report(self):
         print("Activities")
+        all = self._conn.cursor().execute("""
+                        SELECT * FROM Products
+                        ORDER BY date
+                        """).fetchall()
+        for line in all:
+            print(line)
 
     def print_activities_bottom(self):
         print("Activities")
 
-    def print_tables(self):
-        self.print_activities_top()
+    def print_all(self):
+        self.print_activities_report()
         self.print_coffee_stands()
-        self.print_emoloyees()
+        self.print_employees()
         self.print_products()
         self.print_suppliers()
         self.print_activities_bottom()

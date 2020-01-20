@@ -1,7 +1,7 @@
-import REPOSITORY
+import repository
 from DAOs import _CoffeeStands,_Activities,_Employees,_Products,_Suppliers
 from DTOs import *
-from REPOSITORY import repo
+from repository import repo
 
 file = open('action.txt', 'r')
 f = file.readlines()

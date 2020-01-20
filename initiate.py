@@ -1,7 +1,7 @@
-import REPOSITORY
+import repository
 from DAOs import _CoffeeStands,_Activities,_Employees,_Products,_Suppliers
 from DTOs import *
-from REPOSITORY import repo
+from repository import repo
 
 repo.create_tables()
 
@@ -14,10 +14,10 @@ for line in f:
         line = line[:-1]
     parseList.append(line.split(', '))
 
-#print(parseList)
+# print(parseList)
 
 for line in parseList:
-    if(line[0]=='C'):
+    ifline[0]=='C':
         _CoffeeStands.insert(CoffeeStand(*line[1:]))
     elif line[0] == 'S':
         _Suppliers.insert(Supplier(*line[1:]))

@@ -1,8 +1,8 @@
-from REPOSITORY import repo
+from repository import repo
 
 
 def main():
-    repo.print_tables()
+    repo.print_all()
 
 
 if __name__ == '__main__':
