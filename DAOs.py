@@ -12,13 +12,13 @@ class _CoffeeStands:
 
     def insert(self, coffee_stand):
         self._conn.execute("""
-               INSERT INTO Coffee stands (id, location, number_of_employees) VALUES (?, ?, ?)
+               INSERT INTO Coffee_stands (id, location, number_of_employees) VALUES (?, ?, ?)
            """, [coffee_stand.id, coffee_stand.location, coffee_stand.emp])
 
     def find(self, coffee_stand_id):
         c = self._conn.cursor()
         c.execute("""
-            SELECT id, name FROM Coffee stands WHERE id = ?
+            SELECT id, name FROM Coffee_stands WHERE id = ?
         """, [coffee_stand_id])
 
         return CoffeeStand(*c.fetchone())

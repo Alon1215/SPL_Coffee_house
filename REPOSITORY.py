@@ -21,7 +21,6 @@ class _Repository:
         self.Activities = _Activities(self._conn)
         self.Products = _Products(self._conn)
 
-
     def _close(self):
         self._conn.commit()
         self._conn.close()
@@ -83,12 +82,16 @@ class _Repository:
 
     def print_coffee_stands(self):
         print("Coffee stands")
-        c = self._conn.cursor()
-        all = c.execute(""" SELECT * FROM """)
-        for line in all:
+
+        # SELECT cow.name, cow.DOB, reg.name, cat.name, cat.description FROM cow_tab cow
+        # JOIN region_tab reg ON cow.region_id = reg.region_id
+        # JOIN category_tab cat ON cat.category_id = cow.category_id
+        # ORDER BY cow.name
+        all_stands = self._conn.cursor().execute(""" SELECT * FROM Coffee_stands
+                            BY ORDER id
+                            """)
+        for line in all_stands:
             print(line)
-
-
 
     def print_emoloyees(self):
         print("Employees")
