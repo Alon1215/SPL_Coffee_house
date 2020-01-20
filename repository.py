@@ -62,17 +62,15 @@ class _Repository:
                 );
         """)
 
-    def get_total_income(self, id):
+    def get_total_income(self, employee_id):
         total = 0
         my_activities_value = self._conn.cursor().execute("""
-                SELECT act.quantity prod.price FROM Activities act
-                JOIN Products prod ON act.product_id = prod.id
-                ORDER BY cow.name
-                """).fetchall()
+                SELECT Activities.quantity Products.price FROM Activities act WHERE activator_id=?
+                JOIN Products ON Activities.product_id = Products.id 
+                """, [employee_id]).fetchall()
         for item in my_activities_value:
-            total += item[0]
-
-
+            total += (item[0] * item[1])
+        return my_activities_value
 
     def print_coffee_stands(self):
         print("Coffee stands")
@@ -115,24 +113,26 @@ class _Repository:
         print("Employees report")
         all = self._conn.cursor().execute("""
                                             SELECT emp.id emp.name, emp.salary, cf.location FROM Employees emp
-                                            LEFT JOIN Coffee_stands cf ON cf.id = emp.coffee_stand
+                                            JOIN Coffee_stands cf ON cf.id = emp.coffee_stand
                                             ORDER BY cow.name
                                             """).fetchall()
         for item in list:
-            int total = get_total_income(item[0])
+            total = self.get_total_income(item[0])
             print("%s %s %s %s" % (item[1], item[2], item[3], total))
 
     def print_activities_report(self):
         print("Activities")
-        all = self._conn.cursor().execute("""
-                        SELECT * FROM Products
-                        ORDER BY date
-                        """).fetchall()
+        all = self._conn.execute("""
+                                SELECT Activities.date Products.description 
+                                Products.quantity Employees.name Suppliers.name FROM Activities
+                                JOIN Products ON Activities.product_id = Product.id
+                                LEFT JOIN Employees ON Activity.activator_id = 
+                                
+                                """)
+
+
         for line in all:
             print(line)
-
-    def print_activities_bottom(self):
-        print("Activities")
 
     def print_all(self):
         self.print_activities_report()
@@ -140,7 +140,7 @@ class _Repository:
         self.print_employees()
         self.print_products()
         self.print_suppliers()
-        self.print_activities_bottom()
+        self.print_activities_report()
 
 
 # the repository singleton
