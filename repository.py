@@ -11,6 +11,7 @@ class _Repository:
     def __init__(self):
 
         # todo: change logic to check first if it exist, then create a fresh one
+        self.dbExist = os.path.isfile('moncafe.db')
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
         self.Employees = _Employees(self._conn)
@@ -22,8 +23,9 @@ class _Repository:
         self._conn.commit()
         self._conn.close()
 
-
     def create_tables(self):
+        if self.dbExist:
+            self.fix_connect()
         self._conn.executescript("""
                 CREATE TABLE Employees (id   INT   PRIMARY KEY,
                                        name TEXT  NOT NULL,
@@ -59,6 +61,16 @@ class _Repository:
                                         FOREIGN KEY(product_id)   REFERENCES Products(id)
                 );
         """)
+
+    def print_activities(self):
+        print("Activities")
+
+        all = self._conn.cursor().execute("""
+                   SELECT * FROM Activities
+                   ORDER BY product_id
+                   """).fetchall()
+        for line in all:
+            print(line)
 
     def get_total_income(self, employee_id):
         total = 0
@@ -122,16 +134,8 @@ class _Repository:
 
     def print_activities_report(self):
         print("Activities")
-        # all = self._conn.cursor().execute("""
-        #                         SELECT Activities.date Products.description
-        #                         Products.quantity Employees.name Suppliers.name FROM Activities
-        #                         JOIN Products ON Activities.product_id = Products.id
-        #                         LEFT JOIN Employees ON Activities.activator_id = Employees.id
-        #                         LEFT JOIN Suppliers ON Activities.activator_id = Suppliers.id
-        #                         ORDER BY Activities.date
-        #                         """).fetchall()
 
-        all = self._conn.cursor().execute("""SELECT date,description, Activities.quantity ,Employees.name,Suppliers.name FROM Activities
+        all = self._conn.cursor().execute("""SELECT date, description, Activities.quantity ,Employees.name,Suppliers.name FROM Activities
                                JOIN Products ON Activities.product_id = Products.id
                                 LEFT JOIN Employees ON Activities.activator_id = Employees.id
                                 LEFT JOIN Suppliers ON Activities.activator_id = Suppliers.id
@@ -141,13 +145,30 @@ class _Repository:
             print(line)
 
     def print_all(self):
-        #self.print_activities_report()
+        self.print_db()
+        self.print_employees_report()
+        self.print_activities_report()
+
+    def print_db(self):
+        self.print_activities()
         self.print_coffee_stands()
         self.print_employees()
         self.print_products()
         self.print_suppliers()
-        self.print_employees_report()
-        self.print_activities_report()
+
+    def fix_connect(self):
+        self._delete_file()
+        self._conn = sqlite3.connect('moncafe.db')
+        self.CoffeeStands = _CoffeeStands(self._conn)
+        self.Employees = _Employees(self._conn)
+        self.Suppliers = _Suppliers(self._conn)
+        self.Activities = _Activities(self._conn)
+        self.Products = _Products(self._conn)
+
+    def _delete_file(self):
+        self._conn.commit()
+        self._conn.close()
+        os.remove('moncafe.db')
 
 
 # the repository singleton
