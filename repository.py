@@ -119,7 +119,7 @@ class _Repository:
                                             ORDER BY cow.name
                                             """).fetchall()
         for item in list:
-            int total = get_total_income(item[0])
+            total = get_total_income(item[0])
             print("%s %s %s %s" % (item[1], item[2], item[3], total))
 
     def print_activities_report(self):
