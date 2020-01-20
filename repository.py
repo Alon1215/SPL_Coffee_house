@@ -128,9 +128,8 @@ class _Repository:
                                 JOIN Products ON Activities.product_id = Product.id
                                 LEFT JOIN Employees ON Activity.activator_id = Employees.id
                                 left JOIN Suppliers ON Activity.activator_id = Supplier
-                                
-                                """)
-
+                                ORDER BY Activities.date
+                                """).fetchall()
 
         for line in all:
             print(line)
