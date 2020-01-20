@@ -17,7 +17,7 @@ for line in f:
 # print(parseList)
 
 for line in parseList:
-    ifline[0]=='C':
+    if line[0]=='C':
         _CoffeeStands.insert(CoffeeStand(*line[1:]))
     elif line[0] == 'S':
         _Suppliers.insert(Supplier(*line[1:]))

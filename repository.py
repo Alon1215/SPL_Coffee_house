@@ -126,7 +126,8 @@ class _Repository:
                                 SELECT Activities.date Products.description 
                                 Products.quantity Employees.name Suppliers.name FROM Activities
                                 JOIN Products ON Activities.product_id = Product.id
-                                LEFT JOIN Employees ON Activity.activator_id = 
+                                LEFT JOIN Employees ON Activity.activator_id = Employees.id
+                                left JOIN Suppliers ON Activity.activator_id = Supplier
                                 
                                 """)
 
