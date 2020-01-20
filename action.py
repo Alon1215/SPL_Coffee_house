@@ -5,25 +5,24 @@ from REPOSITORY import repo
 
 file = open('action.txt', 'r')
 f = file.readlines()
-actionList = []
+activityList = []
 
 for line in f:
     if line[-1]=='\n':
         line = line[:-1]
-    actionList.append(line.split(', '))
+    activityList.append(line.split(', '))
 
-print(actionList)
+#print(activityList)
 
-for activity in actionList:
-    currQuantity = 5
+for activity in activityList:
+    currQuantity = _Products.get_quantity(activity[0])
     activityQuantity = int(activity[1])
     newQuantity = currQuantity + activityQuantity
-    if(activityQuantity>0):
+    if activityQuantity>0:
         _Products.update(activity[0], newQuantity)
         _Activities.insert(Activity(*activity))
 
-    elif(activityQuantity < 0):
-        if newQuantity >= 0:
+    elif activityQuantity < 0 and newQuantity >= 0:
             _Products.update(activity[0], newQuantity)
             _Activities.insert(Activity(*activity))
 

@@ -110,4 +110,4 @@ class _Activities:
             SELECT student_id, assignment_num, grade FROM grades
         """).fetchall()
 
-        return [Activity(*row) for row in all]
+        return (Activity(*row) for row in all)
