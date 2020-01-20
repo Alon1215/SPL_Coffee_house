@@ -13,6 +13,14 @@ class Employee:
         self.coffee_stand = coffee_stand
 
 
+class Product:
+    def __init__(self, product_id, product_description, product_price):
+        self.product_id = product_id
+        self.product_description = product_description
+        self.product_price = product_price
+        self.product_quantity = 0
+
+
 class Supplier:
     def __init__(self, sup_id, sup_name, sup_contact_info ):
         self.sup_id = sup_id
@@ -20,16 +28,9 @@ class Supplier:
         self.sup_contact_info = sup_contact_info
 
 
-class Product:
-    def __init__(self, student_id, assignment_num, grade):
-        self.student_id = student_id
-        self.assignment_num = assignment_num
-        self.grade = grade
-
-
 class Activity:
-    def __init__(self, employee_id, name, salary, coffee_stand):
-        self.employee_id = employee_id
-        self.name = name
-        self.salary = salary
-        self.coffee_stand = coffee_stand
+    def __init__(self, product_id, quantity, activator_id, date):
+        self.product_id = product_id
+        self.quantity = quantity
+        self.activator_id = activator_id
+        self.date = date
