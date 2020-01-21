@@ -83,39 +83,29 @@ class _Repository:
     def print_coffee_stands(self):
         print("Coffee stands")
 
-        all = self._conn.cursor().execute("""
-                SELECT * FROM Coffee_stands
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
+        all = self.CoffeeStands.find_all()
+        for stand in all:
+            print(stand)
 
     def print_employees(self):
         print("Employees")
-        all = self._conn.cursor().execute("""
-                SELECT * FROM Employees
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
+        all = self.Employees.find_all()
+        for employee in all:
+            print(employee)
+
 
     def print_suppliers(self):
         print("Suppliers")
-        all = self._conn.cursor().execute("""
-                SELECT * FROM Suppliers
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
+        all = self.Suppliers.find_all()
+        for supplier in all:
+            print(supplier)
+
 
     def print_products(self):
         print("Products")
-        all = self._conn.cursor().execute("""
-                SELECT * FROM Products
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
+        all = self.Products.find_all()
+        for product in all:
+            print(product)
 
     def print_employees_report(self):
         print("Employees report")
