@@ -1,9 +1,9 @@
 from DTOs import *
 from repository import repo
-
+import sys
 
 def main():
-    file = open('action.txt', 'r')
+    file = open(sys.argv[1], 'r')
     f = file.readlines()
     activityList = []
 
