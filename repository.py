@@ -96,7 +96,7 @@ class _Repository:
     def print_employees(self):
         print("Employees")
         all = self._conn.cursor().execute("""
-                SELECT * FROM Suppliers
+                SELECT * FROM Employees
                 ORDER BY id
                 """).fetchall()
         for line in all:
@@ -174,3 +174,4 @@ class _Repository:
 # the repository singleton
 repo = _Repository()
 atexit.register(repo._close)
+
