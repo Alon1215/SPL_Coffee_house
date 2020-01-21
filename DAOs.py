@@ -87,11 +87,15 @@ class _Products:
             """, [new_quantity, product_id])
 
     def get_quantity(self, product_id):
+        p = self.find(product_id)
+        return p.product_quantity
+
+    def find(self, product_id):
         c = self._conn.cursor()
         c.execute("""
-                SELECT quantity FROM Products WHERE id = ?
-            """, [product_id])
-        return c.fetchone()[0]
+                   SELECT id,description,price,quantity  FROM  Products WHERE id=(?)
+                    """, [product_id])
+        return Product(*c.fetchone())
 
 
 class _Activities:

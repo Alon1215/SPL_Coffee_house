@@ -15,11 +15,11 @@ class Employee:
 
 
 class Product:
-    def __init__(self, product_id, product_description, product_price):
+    def __init__(self, product_id, product_description, product_price, product_quantity):
         self.product_id = product_id
         self.product_description = product_description
         self.product_price = product_price
-        self.product_quantity = 0
+        self.product_quantity = product_quantity
 
 
 class Supplier:

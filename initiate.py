@@ -23,7 +23,7 @@ def main():
         elif line[0] == 'E':
             repo.Employees.insert(Employee(*line[1:]))  # TODO:check if this works
         elif line[0] == 'P':
-            repo.Products.insert(Product(*line[1:]))
+            repo.Products.insert(Product(*line[1:], 0))
 
 
 if __name__ == '__main__':
