@@ -65,9 +65,12 @@ class _Repository:
     def print_activities(self):
         print("Activities")
 
-        all = self.Activities.find_all()
-        for activity in all:
-            print(activity)
+        all = self._conn.cursor().execute("""
+                   SELECT * FROM Activities
+                   ORDER BY date
+                   """).fetchall()
+        for line in all:
+            print(line)
 
     def get_total_income(self, employee_id):
         total = 0
@@ -83,29 +86,39 @@ class _Repository:
     def print_coffee_stands(self):
         print("Coffee stands")
 
-        all = self.CoffeeStands.find_all()
-        for stand in all:
-            print(stand)
+        all = self._conn.cursor().execute("""
+                SELECT * FROM Coffee_stands
+                ORDER BY id
+                """).fetchall()
+        for line in all:
+            print(line)
 
     def print_employees(self):
         print("Employees")
-        all = self.Employees.find_all()
-        for employee in all:
-            print(employee)
-
+        all = self._conn.cursor().execute("""
+                SELECT * FROM Employees
+                ORDER BY id
+                """).fetchall()
+        for line in all:
+            print(line)
 
     def print_suppliers(self):
         print("Suppliers")
-        all = self.Suppliers.find_all()
-        for supplier in all:
-            print(supplier)
-
+        all = self._conn.cursor().execute("""
+                SELECT * FROM Suppliers
+                ORDER BY id
+                """).fetchall()
+        for line in all:
+            print(line)
 
     def print_products(self):
         print("Products")
-        all = self.Products.find_all()
-        for product in all:
-            print(product)
+        all = self._conn.cursor().execute("""
+                SELECT * FROM Products
+                ORDER BY id
+                """).fetchall()
+        for line in all:
+            print(line)
 
     def print_employees_report(self):
         print("Employees report")
@@ -145,9 +158,6 @@ class _Repository:
 
     def fix_connect(self):
         self._delete_file()
-        self.update_fields()
-
-    def update_fields(self):
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
         self.Employees = _Employees(self._conn)

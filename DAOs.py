@@ -23,15 +23,6 @@ class _CoffeeStands:
 
         return CoffeeStand(*c.fetchone())
 
-    def find_all(self):
-        c = self._conn.cursor()
-        all = c.execute("""
-               SELECT * FROM Coffee_stands
-               ORDER BY id
-           """).fetchall()
-
-        return (CoffeeStand(*row) for row in all)
-
 
 class _Employees:
     def __init__(self, conn):
@@ -50,15 +41,6 @@ class _Employees:
 
         return Employee(*c.fetchone())
 
-    def find_all(self):
-        c = self._conn.cursor()
-        all = c.execute("""
-               SELECT * FROM Employees
-               ORDER BY id
-           """).fetchall()
-
-        return (Employee(*row) for row in all)
-
 
 class _Suppliers:
     def __init__(self, conn):
@@ -73,11 +55,10 @@ class _Suppliers:
     def find_all(self):
         c = self._conn.cursor()
         all = c.execute("""
-            SELECT * FROM Suppliers
-            ORDER BY id
+            SELECT student_id, assignment_num, grade FROM Suppliers
         """).fetchall()
 
-        return (Supplier(*row) for row in all)
+        return [Supplier(*row) for row in all]
 
 
 class _Products:
@@ -93,11 +74,10 @@ class _Products:
     def find_all(self):
         c = self._conn.cursor()
         all = c.execute("""
-            SELECT * FROM Products
-            ORDER BY id
+            SELECT product_id, description, price, quantity FROM Products
         """).fetchall()
 
-        return (Product(*row) for row in all)
+        return [Product(*row) for row in all]
 
     def update_quantity(self, product_id, new_quantity):
         c = self._conn.cursor()
@@ -129,9 +109,9 @@ class _Activities:
 
     # TODO: change method
     def find_all(self):
-        all = self._conn.cursor().execute("""
-                           SELECT * FROM Activities
-                           ORDER BY date
-                           """).fetchall()
+        c = self._conn.cursor()
+        all = c.execute("""
+            SELECT student_id, assignment_num, grade FROM grades
+        """).fetchall()
 
         return (Activity(*row) for row in all)
