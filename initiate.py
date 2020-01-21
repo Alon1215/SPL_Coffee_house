@@ -1,11 +1,11 @@
 from DTOs import *
 from repository import repo
-
+import sys
 
 def main():
 
     repo.create_tables()
-    file = open('config.txt', 'r')
+    file = open(sys.argv[1], 'r')
     f = file.readlines()
     parse_list = []
 
@@ -14,7 +14,7 @@ def main():
             line = line[:-1]
         parse_list.append(line.split(', '))
 
-    # print(parse_list)
+    #print(parse_list)
     for line in parse_list:
         if line[0] == 'C':
             repo.CoffeeStands.insert(CoffeeStand(*line[1:]))
@@ -23,7 +23,7 @@ def main():
         elif line[0] == 'E':
             repo.Employees.insert(Employee(*line[1:]))  # TODO:check if this works
         elif line[0] == 'P':
-            repo.Products.insert(Product(*line[1:]))
+            repo.Products.insert(Product(*line[1:], 0))
 
 
 if __name__ == '__main__':
