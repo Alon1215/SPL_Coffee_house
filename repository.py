@@ -65,12 +65,9 @@ class _Repository:
     def print_activities(self):
         print("Activities")
 
-        all = self._conn.cursor().execute("""
-                   SELECT * FROM Activities
-                   ORDER BY product_id
-                   """).fetchall()
-        for line in all:
-            print(line)
+        all = self.Activities.find_all()
+        for activity in all:
+            print(activity)
 
     def get_total_income(self, employee_id):
         total = 0
@@ -158,6 +155,9 @@ class _Repository:
 
     def fix_connect(self):
         self._delete_file()
+        self.update_fields()
+
+    def update_fields(self):
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
         self.Employees = _Employees(self._conn)

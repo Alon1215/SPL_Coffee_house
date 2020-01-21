@@ -109,9 +109,9 @@ class _Activities:
 
     # TODO: change method
     def find_all(self):
-        c = self._conn.cursor()
-        all = c.execute("""
-            SELECT student_id, assignment_num, grade FROM grades
-        """).fetchall()
+        all = self._conn.cursor().execute("""
+                           SELECT * FROM Activities
+                           ORDER BY product_id
+                           """).fetchall()
 
         return (Activity(*row) for row in all)
