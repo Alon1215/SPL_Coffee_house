@@ -62,12 +62,6 @@ class _Repository:
                 );
         """)
 
-    def print_activities(self):
-        print("Activities")
-
-        all = self.Activities.find_all()
-        for activity in all:
-            print(activity)
 
     def get_total_income(self, employee_id):
         total = 0
@@ -80,66 +74,27 @@ class _Repository:
             total += (abs(item[0]) * item[1])
         return total
 
-    def print_coffee_stands(self):
-        print("Coffee stands")
 
+
+
+    def get_emp_report(self):
         all = self._conn.cursor().execute("""
-                SELECT * FROM Coffee_stands
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
+                                               SELECT Employees.id ,name, salary, location FROM Employees 
+                                               JOIN Coffee_stands  ON  Coffee_stands.id = Employees.coffee_stand
+                                               ORDER BY Employees.name
 
-    def print_employees(self):
-        print("Employees")
-        all = self._conn.cursor().execute("""
-                SELECT * FROM Employees
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
+                                               """).fetchall()
+        return all
 
-    def print_suppliers(self):
-        print("Suppliers")
-        all = self._conn.cursor().execute("""
-                SELECT * FROM Suppliers
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
-
-    def print_products(self):
-        print("Products")
-        all = self._conn.cursor().execute("""
-                SELECT * FROM Products
-                ORDER BY id
-                """).fetchall()
-        for line in all:
-            print(line)
-
-    def print_employees_report(self):
-        print("Employees report")
-        all = self._conn.cursor().execute("""
-                                            SELECT Employees.id ,name, salary, location FROM Employees 
-                                            JOIN Coffee_stands  ON  Coffee_stands.id = Employees.coffee_stand
-                                            ORDER BY Employees.name
-
-                                            """).fetchall()
-        for item in all:
-            total = self.get_total_income(item[0])
-            print("%s %s %s %s" % (item[1], item[2], item[3], total))
-
-    def print_activities_report(self):
-        print("Activities")
-
+    def get_active_report(self):
         all = self._conn.cursor().execute("""SELECT date, description, Activities.quantity ,Employees.name,Suppliers.name FROM Activities
-                               JOIN Products ON Activities.product_id = Products.id
-                                LEFT JOIN Employees ON Activities.activator_id = Employees.id
-                                LEFT JOIN Suppliers ON Activities.activator_id = Suppliers.id
-                                ORDER BY Activities.date """).fetchall()
+                                 JOIN Products ON Activities.product_id = Products.id
+                                  LEFT JOIN Employees ON Activities.activator_id = Employees.id
+                                  LEFT JOIN Suppliers ON Activities.activator_id = Suppliers.id
+                                  ORDER BY Activities.date """).fetchall()
+        return all
 
-        for line in all:
-            print(line)
+
 
     def print_all(self):
         self.print_db()

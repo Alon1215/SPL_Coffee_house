@@ -23,6 +23,15 @@ class _CoffeeStands:
 
         return CoffeeStand(*c.fetchone())
 
+    def find_all(self):
+        c = self._conn.cursor()
+        all = c.execute("""
+            SELECT * FROM Coffee_stands
+            ORDER BY id
+        """).fetchall()
+
+        return [CoffeeStand(*row) for row in all]
+
 
 class _Employees:
     def __init__(self, conn):
@@ -41,6 +50,15 @@ class _Employees:
 
         return Employee(*c.fetchone())
 
+    def find_all(self):
+        c = self._conn.cursor()
+        all = c.execute("""
+            SELECT * FROM Employees
+            ORDER BY id
+        """).fetchall()
+
+        return [Employee(*row) for row in all]
+
 
 class _Suppliers:
     def __init__(self, conn):
@@ -55,7 +73,8 @@ class _Suppliers:
     def find_all(self):
         c = self._conn.cursor()
         all = c.execute("""
-            SELECT student_id, assignment_num, grade FROM Suppliers
+            SELECT * FROM Suppliers
+            ORDER BY id
         """).fetchall()
 
         return [Supplier(*row) for row in all]
@@ -74,7 +93,8 @@ class _Products:
     def find_all(self):
         c = self._conn.cursor()
         all = c.execute("""
-            SELECT product_id, description, price, quantity FROM Products
+            SELECT * FROM Products
+            ORDER BY id
         """).fetchall()
 
         return [Product(*row) for row in all]
@@ -111,7 +131,7 @@ class _Activities:
     def find_all(self):
         all = self._conn.cursor().execute("""
                            SELECT * FROM Activities
-                           ORDER BY product_id
+                           ORDER BY date
                            """).fetchall()
 
         return (Activity(*row) for row in all)

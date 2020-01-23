@@ -7,6 +7,7 @@ def main():
     f = file.readlines()
     activityList = []
 
+
     for line in f:
         if line[-1] == '\n':
             line = line[:-1]
@@ -23,7 +24,8 @@ def main():
         elif activityQuantity < 0 and newQuantity >= 0:
             repo.Products.update_quantity(activity[0], newQuantity)
             repo.Activities.insert(Activity(*activity))
-    repo.print_db()
+
+    import printdb
 
 
 if __name__ == '__main__':
