@@ -93,19 +93,6 @@ class _Repository:
         return all
 
 
-
-    def print_all(self):
-        self.print_db()
-        self.print_employees_report()
-        self.print_activities_report()
-
-    def print_db(self):
-        self.print_activities()
-        self.print_coffee_stands()
-        self.print_employees()
-        self.print_products()
-        self.print_suppliers()
-
     def fix_connect(self):
         self._delete_file()
         self.update_fields()
