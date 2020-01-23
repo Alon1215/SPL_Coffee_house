@@ -2,7 +2,7 @@
 from DAOs import _CoffeeStands, _Employees, _Suppliers, _Activities, _Products
 import sqlite3
 import atexit
-import os  # for remove # TODO: ALON 1320 remember to delete the line!
+import os
 
 
 # The Repository
@@ -10,7 +10,7 @@ import os  # for remove # TODO: ALON 1320 remember to delete the line!
 class _Repository:
     def __init__(self):
 
-        # todo: change logic to check first if it exist, then create a fresh one
+
         self.dbExist = os.path.isfile('moncafe.db')
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)

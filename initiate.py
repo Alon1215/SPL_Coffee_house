@@ -21,7 +21,7 @@ def main():
         elif line[0] == 'S':
             repo.Suppliers.insert(Supplier(*line[1:]))
         elif line[0] == 'E':
-            repo.Employees.insert(Employee(*line[1:]))  # TODO:check if this works
+            repo.Employees.insert(Employee(*line[1:]))
         elif line[0] == 'P':
             repo.Products.insert(Product(*line[1:], 0))
 

@@ -4,7 +4,7 @@ from DTOs import *
 import sqlite3
 
 
-# TODO: change/add methods: here because of copying from class, not sure what is needed
+
 
 class _CoffeeStands:
     def __init__(self, conn):
@@ -69,7 +69,6 @@ class _Suppliers:
             INSERT INTO Suppliers (id, name, contact_information) VALUES (?, ?, ?)
         """, [supplier.sup_id, supplier.sup_name, supplier.sup_contact_info])
 
-    # TODO: change method: here because of copying from class, not sure if needed (same for all findAll()
     def find_all(self):
         c = self._conn.cursor()
         all = c.execute("""
@@ -89,7 +88,6 @@ class _Products:
             INSERT INTO Products (id, description, price, quantity) VALUES (?, ?, ?, ?)
         """, [product.product_id, product.product_description, product.product_price, product.product_quantity])
 
-    # TODO: change method: here because of copying from class, not sure if needed (same for all findAll()
     def find_all(self):
         c = self._conn.cursor()
         all = c.execute("""
@@ -127,7 +125,6 @@ class _Activities:
             INSERT INTO Activities (Product_id, quantity, activator_id, date) VALUES (?, ?, ?, ?)
         """, [activity.product_id, activity.quantity, activity.activator_id, activity.date])
 
-    # TODO: change method
     def find_all(self):
         all = self._conn.cursor().execute("""
                            SELECT * FROM Activities
