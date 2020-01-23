@@ -24,7 +24,6 @@ def main():
         elif activityQuantity < 0 and newQuantity >= 0:
             repo.Products.update_quantity(activity[0], newQuantity)
             repo.Activities.insert(Activity(*activity))
-
     import printdb
 
 

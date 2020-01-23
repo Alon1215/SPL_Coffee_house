@@ -47,10 +47,12 @@ def print_employees_report():
 
 
 def print_activities_report():
-    print("Activities")
     all = repo.get_active_report()
-    for line in all:
-        print(line)
+    if len(all)!=0:
+        print()
+        print("Activities")
+        for line in all:
+            print(line)
 
 
 def print_all():
@@ -61,7 +63,6 @@ def print_all():
     print_suppliers()
     print()
     print_employees_report()
-    print()
     print_activities_report()
 
 

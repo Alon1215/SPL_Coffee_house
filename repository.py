@@ -9,8 +9,6 @@ import os
 
 class _Repository:
     def __init__(self):
-
-
         self.dbExist = os.path.isfile('moncafe.db')
         self._conn = sqlite3.connect('moncafe.db')
         self.CoffeeStands = _CoffeeStands(self._conn)
@@ -124,6 +122,8 @@ class _Repository:
         self._conn.commit()
         self._conn.close()
         os.remove('moncafe.db')
+
+
 
 
 # the repository singleton
